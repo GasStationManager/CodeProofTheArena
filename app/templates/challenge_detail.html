@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>{{ challenge.title }}</h1>
+<p>{{ challenge.description }}</p>
+<h2>Function Signature</h2>
+<pre><code>{{ challenge.function_signature }}</code></pre>
+<h2>Theorem Signature</h2>
+<pre><code>{{ challenge.theorem_signature }}</code></pre>
+<p><a href="/challenges/{{ challenge.id }}/submissions">View All Submissions</a></p>
+
+
+{% if user %}
+<h2>Submit Your Solution</h2>
+<form action="/challenges/{{ challenge.id }}" method="post">
+    <input type="hidden" name="challenge_id" value="{{ challenge.id }}">
+    <input type="hidden" name="session_token" value="{{ request.session.get('token', '') }}">
+        
+    <label for="code">Your Lean 4 Code, to complete the function definition
+<pre><code>{{ challenge.function_signature }}</code></pre>
+</label>
+    <textarea id="code" name="code" rows="10" cols="50" required></textarea>
+    <label for="proof">Your Proof, to complete the theorem
+<pre><code>{{ challenge.theorem_signature }}</code></pre>
+</label>
+    <textarea id="proof" name="proof" rows="10" cols="50" required></textarea>
+    <button type="submit">Submit</button>
+</form>
+{% else %}
+    <p>Please <a href="/login">log in</a> to submit a solution for this challenge.</p>
+{% endif %}
+{% endblock %}

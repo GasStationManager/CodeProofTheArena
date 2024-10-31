@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Submission Details</h1>
+<p><a href="/challenges/{{ submission.challenge_id }}/submissions">Back to Submissions List</a></p>
+
+<h2>Challenge: {{ submission.challenge.title }}</h2>
+<p>Submitted by: {{ submission.user.display_name }}</p>
+<p>Submitted at: {{ submission.submitted_at.strftime('%Y-%m-%d %H:%M:%S') }}</p>
+
+<h3>Code:</h3>
+<pre><code>{{ submission.challenge.function_signature }}</code></pre>
+<pre><code>{{ submission.code }}</code></pre>
+
+<h3>Proof:</h3>
+<pre><code>{{ submission.challenge.theorem_signature }}</code></pre>
+<pre><code>{{ submission.proof }}</code></pre>
+
+<p>Is Correct: {{ "Yes" if submission.is_correct else "No" }}</p>
+<p>Feedback: </p>
+<pre>{{ submission.feedback }}</pre>
+
+{% endblock %}
+

@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Submissions for Challenge: {{ challenge.title }}</h1>
+<p><a href="/challenges/{{ challenge.id }}">Back to Challenge</a></p>
+
+<table>
+    <thead>
+        <tr>
+            <th>Submission ID</th>
+            <th>User</th>
+            <th>Submitted At</th>
+            <th>Is Correct</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for submission in submissions %}
+        <tr>
+            <td>{{ submission.id }}</td>
+            <td>{{ submission.user.display_name }}</td>
+            <td>{{ submission.submitted_at.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+            <td>{{ "Yes" if submission.is_correct else "No" }}</td>
+            <td><a href="/submissions/{{ submission.id }}">View Details</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% if not submissions %}
+<p>No submissions yet for this challenge.</p>
+{% else %}
+<div class="pagination">
+    {% if page > 1 %}
+    <a href="?page={{ page - 1 }}">Previous</a>
+    {% endif %}
+    <span>Page {{ page }}</span>
+    {% if submissions|length == per_page %}
+    <a href="?page={{ page + 1 }}">Next</a>
+    {% endif %}
+</div>
+{% endif %}
+
+{% endblock %}
+

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Create New Challenge</h1>
+{% if error %}
+<p style="color: red;">{{ error }}</p>
+{% endif %}
+<form method="post">
+    <div>
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title" required>
+    </div>
+    <div>
+        <label for="description">Description:</label>
+        <textarea id="description" name="description" rows="4" required></textarea>
+    </div>
+    <div>
+        <label for="function_signature">Function Signature:</label>
+        <textarea id="function_signature" name="function_signature" rows="2" required></textarea>
+    </div>
+    <div>
+        <label for="theorem_signature">Theorem Signature:</label>
+        <textarea id="theorem_signature" name="theorem_signature" rows="2" required></textarea>
+    </div>
+    <button type="submit">Create Challenge</button>
+</form>
+{% endblock %}
+
