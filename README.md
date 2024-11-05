@@ -18,7 +18,7 @@ The purpose of this website is to serve as a platform to crowdsource efforts to 
 ## Brief Installation Instruction
 
 1. clone the repository
-2. poetry install to install dependencies
-3. set up connection to PostgreSQL in app/core/config.py and in alembic.ini
-4. poetry run alembic upgrade head 
-5. poetry run python run.py
+2. `poetry install` to install dependencies
+3. set up connection to PostgreSQL in `app/core/config.py` and in `alembic.ini`
+4. `poetry run alembic upgrade head` 
+5. `./run.sh`
