@@ -1,5 +1,7 @@
 # Code with Proofs: The Arena
 
+[Demo Site](http://5.78.72.236:8000)
+
 Main essay: [A Proposal for Safe and Hallucination-free Coding AI](https://gasstationmanager.github.io/ai/2024/11/04/a-proposal.html)
 
 This repo implements a website with functionalities similar to online coding challenge sites like LeetCode, HackerRank and CodeForces, where users can submit solutions to coding challenges and be judged on test cases; except here the problems have function signatures with formal theorem statements, users submit code with proofs, and will be judged by the proof checker. Right now the only supported language is Lean, but I hope someone can extend it to other similar languages such as Coq, Idris, Dafny.
@@ -34,12 +36,12 @@ curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf 
 
 1. clone the repository
 2. `poetry install` to install dependencies
-3. Create a database and user:
+3. Create a database and user in PostgreSQL. First:
 ```bash
 sudo -u postgres psql
 ```
 
-    In PostgreSQL prompt (replace with your password):
+4. In PostgreSQL prompt (replace with your password):
 
 ```
 CREATE DATABASE coding_challenge_db;
@@ -58,7 +60,8 @@ ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON TABLES TO coding_challeng
 \q
 ```
 
-    Then set up connection to PostgreSQL in `app/core/config.py` and in `alembic.ini` by filling in the password you chose.
+5. Then set up connection to PostgreSQL in `app/core/config.py` and in `alembic.ini` by filling in the password you chose.
 
-4. `poetry run alembic upgrade head` 
-5. `./run.sh`
+6. `poetry run alembic upgrade head` 
+
+7. `./run.sh`
