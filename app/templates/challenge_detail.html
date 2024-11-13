@@ -7,6 +7,10 @@
 <pre><code>{{ challenge.function_signature }}</code></pre>
 <h2>Theorem Signature</h2>
 <pre><code>{{ challenge.theorem_signature }}</code></pre>
+{% if challenge.theorem2_signature %}
+<h2>Additional Theorem Signature</h2>
+<pre><code>{{ challenge.theorem2_signature }}</code></pre>
+{% endif %}
 <p><a href="/challenges/{{ challenge.id }}/submissions">View All Submissions</a></p>
 
 
@@ -24,6 +28,12 @@
 <pre><code>{{ challenge.theorem_signature }}</code></pre>
 </label>
     <textarea id="proof" name="proof" rows="10" cols="50" required></textarea>
+        {% if challenge.theorem2_signature %}
+            <label for="proof2">Proof for Second Theorem:
+<pre><code>{{ challenge.theorem2_signature }}</code></pre>
+</label>
+            <textarea id="proof2" name="proof2" rows="10" cols="50" required></textarea>
+        {% endif %}
     <button type="submit">Submit</button>
 </form>
 {% else %}

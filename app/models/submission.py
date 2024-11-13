@@ -11,8 +11,11 @@ class Submission(Base):
     user_id = Column(Integer, ForeignKey("users.id"))
     code = Column(Text)
     proof = Column(Text)
+    proof2 = Column(Text, nullable=True)
     is_correct = Column(Boolean, default=False)
-    feedback = Column(Text) 
+    is_correct2 = Column(Boolean, default=False)
+    feedback = Column(Text)
+    feedback2 = Column(Text, nullable=True)
     submitted_at = Column(DateTime(timezone=True), server_default=func.now())
 
     challenge = relationship("Challenge", back_populates="submissions")

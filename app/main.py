@@ -110,6 +110,7 @@ async def create_challenge(
     description: str = Form(...),
     function_signature: str = Form(...),
     theorem_signature: str = Form(...),
+    theorem2_signature: str = Form(None),
     db: Session = Depends(deps.get_db),
     current_user: User = Depends(get_current_user)
 ):
@@ -121,7 +122,8 @@ async def create_challenge(
             title=title,
             description=description,
             function_signature=function_signature,
-            theorem_signature=theorem_signature
+            theorem_signature=theorem_signature,
+            theorem2_signature=theorem2_signature
         )
         new_challenge = crud.challenge.create_challenge(db, challenge=challenge, owner_id=current_user.id)
     except ValueError as e:
@@ -151,6 +153,7 @@ async def submit_challenge(
     challenge_id: int,
     code: str = Form(...),
     proof: str = Form(...),
+    proof2: str = Form(None),
     session_token: str = Form(...),
     db: Session = Depends(deps.get_db)
 ):
@@ -168,7 +171,23 @@ async def submit_challenge(
         logger.error(f"Error decoding token: {str(e)}")
         return RedirectResponse(url="/login", status_code=status.HTTP_302_FOUND)
 
-    submission = schemas.SubmissionCreate(challenge_id=challenge_id, code=code, proof=proof)
+    challenge = crud.challenge.get_challenge(db, challenge_id=challenge_id)
+    if not challenge:
+        raise HTTPException(status_code=404, detail="Challenge not found")
+
+    # Require proof2 if challenge has theorem2_signature
+    if challenge.theorem2_signature and not proof2:
+        return templates.TemplateResponse(
+            "challenge_detail.html",
+            {
+                "request": request,
+                "challenge": challenge,
+                "user": current_user,
+                "error": "Second proof is required for this challenge"
+            }
+        )
+
+    submission = schemas.SubmissionCreate(challenge_id=challenge_id, code=code, proof=proof, proof2=proof2)
     try:
         crud.submission.create_submission(db=db, submission=submission, user_id=user.id)
         logger.info('finished creating submission')

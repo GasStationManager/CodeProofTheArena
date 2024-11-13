@@ -12,13 +12,23 @@
 <pre><code>{{ submission.challenge.function_signature }}</code></pre>
 <pre><code>{{ submission.code }}</code></pre>
 
-<h3>Proof:</h3>
+<h3>First Theorem Proof:</h3>
 <pre><code>{{ submission.challenge.theorem_signature }}</code></pre>
 <pre><code>{{ submission.proof }}</code></pre>
 
-<p>Is Correct: {{ "Yes" if submission.is_correct else "No" }}</p>
+<p>Status: {{ "Correct" if submission.is_correct else "Incorrect" }}</p>
 <p>Feedback: </p>
 <pre>{{ submission.feedback }}</pre>
+
+{% if submission.challenge.theorem2_signature %}
+<h3>Second Theorem Proof:</h3>
+<pre><code>{{ submission.challenge.theorem2_signature }}</code></pre>
+<pre><code>{{ submission.proof2 }}</code></pre>
+<p>Status: {{ "Correct" if submission.is_correct2 else "Incorrect" }}</p>
+{% if submission.feedback2 %}
+<p>Feedback: {{ submission.feedback2 }}</p>
+{% endif %}
+{% endif %}
 
 {% endblock %}
 

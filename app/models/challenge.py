@@ -10,6 +10,7 @@ class Challenge(Base):
     description = Column(Text)
     function_signature = Column(String)
     theorem_signature = Column(String)
+    theorem2_signature = Column(String, nullable=True)
     owner_id = Column(Integer, ForeignKey("users.id"))
 
     owner = relationship("User", back_populates="challenges")

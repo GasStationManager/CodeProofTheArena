@@ -10,7 +10,10 @@
             <th>Submission ID</th>
             <th>User</th>
             <th>Submitted At</th>
-            <th>Is Correct</th>
+            <th>First Theorem</th>
+            {% if challenge.theorem2_signature %}
+            <th>Second Theorem</th>
+            {% endif %}
             <th>Action</th>
         </tr>
     </thead>
@@ -20,7 +23,10 @@
             <td>{{ submission.id }}</td>
             <td>{{ submission.user.display_name }}</td>
             <td>{{ submission.submitted_at.strftime('%Y-%m-%d %H:%M:%S') }}</td>
-            <td>{{ "Yes" if submission.is_correct else "No" }}</td>
+            <td>{{ "Correct" if submission.is_correct else "Incorrect" }}</td>
+            {% if challenge.theorem2_signature %}
+            <td>{{ "Correct" if submission.is_correct2 else "Incorrect" }}</td>
+            {% endif %}
             <td><a href="/submissions/{{ submission.id }}">View Details</a></td>
         </tr>
         {% endfor %}

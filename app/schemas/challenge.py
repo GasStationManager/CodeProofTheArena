@@ -6,6 +6,7 @@ class ChallengeBase(BaseModel):
     description: str
     function_signature: str
     theorem_signature: str
+    theorem2_signature: Optional[str] = None
 
 class ChallengeCreate(ChallengeBase):
     pass
