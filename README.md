@@ -38,7 +38,9 @@ curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf 
 ```bash
 sudo -u postgres psql
 ```
-In PostgreSQL prompt (replace with your password):
+
+    In PostgreSQL prompt (replace with your password):
+
 ```
 CREATE DATABASE coding_challenge_db;
 CREATE USER coding_challenge_user WITH PASSWORD 'your_password_here';
@@ -55,6 +57,8 @@ ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON TABLES TO coding_challeng
 
 \q
 ```
-Then set up connection to PostgreSQL in `app/core/config.py` and in `alembic.ini` by filling in the password you chose.
+
+    Then set up connection to PostgreSQL in `app/core/config.py` and in `alembic.ini` by filling in the password you chose.
+
 4. `poetry run alembic upgrade head` 
 5. `./run.sh`

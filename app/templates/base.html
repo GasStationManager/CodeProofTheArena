@@ -9,14 +9,14 @@
 <body>
     <header>
         <nav>
-            <a href="/">Home</a>
-            <a href="/challenges">Challenges</a>
+            <a href="/">Home</a> | 
+            <a href="/challenges">Challenges</a> |
             {% if user %}
-            <a href="/challenges/create">Create Challenge</a>
-            <span>Welcome, {{ user.display_name }}</span>
+            <a href="/challenges/create">Create Challenge</a> | 
+            <span>Welcome, {{ user.display_name }}</span> |
             <a href="/logout">Logout</a>
             {% else %}
-            <a href="/login">Login</a>
+            <a href="/login">Login</a> | 
             <a href="/register">Register</a>
             {% endif %}
         </nav>
@@ -25,7 +25,7 @@
         {% block content %}{% endblock %}
     </main>
     <footer>
-        <p>&copy; 2024 </p>
+        <p>&copy; 2024. Contact: GasStationCodeManager@gmail.com. </p>
     </footer>
     <script src="{{ url_for('static', path='/js/main.js') }}"></script>
 </body>
