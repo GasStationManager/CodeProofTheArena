@@ -12,10 +12,10 @@ def get_challenge(db: Session, challenge_id: int):
 def get_challenges(db: Session, skip: int = 0, limit: int = 100):
     success_case = case(
         (and_(
-            Submission.is_correct == True,
+            Submission.is_correct.is_(True),
             or_(
-                Challenge.theorem2_signature == None,
-                Submission.is_correct2 == True
+                Challenge.theorem2_signature.is_(None),
+                Submission.is_correct2.is_(True)
             )
         ), 1),
         else_=0
@@ -24,10 +24,10 @@ def get_challenges(db: Session, skip: int = 0, limit: int = 100):
     return (db.query(Challenge,
                     User.display_name.label('creator_name'),
                     func.count(Submission.id).label('total_submissions'),
-                    func.sum(success_case).label('successful_submissions'))
+                    func_coalesce(func.sum(success_case),0).label('successful_submissions'))
             .join(User, Challenge.owner_id == User.id)
             .outerjoin(Submission, Challenge.id == Submission.challenge_id)
-            .group_by(Challenge.id, User.display_name)
+            .group_by(Challenge.id, User,id, User.display_name)
             .order_by(Challenge.id)
             .offset(skip)
             .limit(limit)
