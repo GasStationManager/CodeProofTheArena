@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session, joinedload
-from sqlalchemy import func
+from sqlalchemy import func, case, and_, or_
 from app.models.challenge import Challenge
 from app.schemas.challenge import ChallengeCreate, ChallengeUpdate
 from app.models.submission import Submission
@@ -10,13 +10,21 @@ def get_challenge(db: Session, challenge_id: int):
 
 
 def get_challenges(db: Session, skip: int = 0, limit: int = 100):
+    success_case = case(
+        (and_(
+            Submission.is_correct == True,
+            or_(
+                Challenge.theorem2_signature == None,
+                Submission.is_correct2 == True
+            )
+        ), 1),
+        else_=0
+    )
+
     return (db.query(Challenge,
                     User.display_name.label('creator_name'),
                     func.count(Submission.id).label('total_submissions'),
-                    func.count(func.case([
-                        ((Submission.is_correct == True) &
-                         ((Challenge.theorem2_signature == None) | (Submission.is_correct2 == True)), 1)
-                    ])).label('successful_submissions'))
+                    func.sum(success_case).label('successful_submissions'))
             .join(User, Challenge.owner_id == User.id)
             .outerjoin(Submission, Challenge.id == Submission.challenge_id)
             .group_by(Challenge.id, User.display_name)
