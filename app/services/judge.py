@@ -36,7 +36,7 @@ def check_lean_proof(challenge: dict, submission: dict) -> dict:
 
         for fname in [codef, prooff]:
             # Run Lean 4 on the temporary file
-            result = subprocess.run(["lean", fname], capture_output=True, text=True)
+            result = subprocess.run(["lake","env","lean", fname], capture_output=True, text=True)
         
             # Check if Lean 4 succeeded (return code 0 means success)
             is_correct = result.returncode == 0
@@ -54,7 +54,7 @@ def check_lean_proof(challenge: dict, submission: dict) -> dict:
         is_correct2 = None
         error_message2 = None
         if challenge.get('theorem2_signature') and submission.get('proof2'):
-            result2 = subprocess.run(["lean", proof2f], capture_output=True, text=True)
+            result2 = subprocess.run(["lake","env","lean", proof2f], capture_output=True, text=True)
             is_correct2 = result2.returncode == 0
             error_message2 = ""
             error_lines2 = result2.stderr.split('\n') + result2.stdout.split('\n')
