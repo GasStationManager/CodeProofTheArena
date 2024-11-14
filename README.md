@@ -12,6 +12,9 @@ The web app is implemented in Python with the FastAPI library. Both web interfac
 and create/manage submissions. Automatic API documentation available; once the app is running
 they are served  at `/docs` (Swagger UI), and  at `/redoc` (Redoc).
 
+`scripts/import_challenges.py` is a simple script that creates challenges by importing from a JSONL file
+in the format of [Code with Proofs Benchmark](https://github.com/GasStationManager/CodeProofBenchmark).
+
 # Installation 
 
 ## Prerequisites

@@ -28,7 +28,7 @@ def create_challenge(challenge_data, api_url, token):
         "title": title,
         "description": challenge_data['description'],
         "function_signature": challenge_data['function_signature'],
-        "theorem_signature": challenge_data['theorem_signature'],
+        "theorem_signature": challenge_data['theorem_signature'] if challenge_data['theorem_signature'] else '',
         "theorem2_signature": challenge_data.get('theorem2_signature')
     }
 
