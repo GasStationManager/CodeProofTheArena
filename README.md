@@ -9,7 +9,8 @@ This repo implements a website with functionalities similar to online coding cha
 The purpose of this website is to serve as a platform to crowdsource efforts to create data on code-with-proof problems and solutions, including problem-only data as well as problem-with-solution data, both human-created and machine-created. And as a platform to share this data with the open-source community, for the purpose of training open-source models.
 
 The web app is implemented in Python with the FastAPI library. Both web interface and API endpoints are available to create/manage challanges
-and create/manage submissions.
+and create/manage submissions. Automatic API documentation available; once the app is running
+they are served  at `/docs` (Swagger UI), and  at `/redoc` (Redoc).
 
 # Installation 
 
