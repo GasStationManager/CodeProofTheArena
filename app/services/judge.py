@@ -5,17 +5,20 @@ import re
 
 def check_lean_proof(challenge: dict, submission: dict) -> dict:
     with tempfile.TemporaryDirectory() as tmpdir:
-        # Create a temporary Lean file
+        # Create temporary Lean files
+        function_sig=challenge['function_signature']
+        if 'import' not in function_sig:
+            function_sig='import Mathlib\n\n'+function_sig
         codef=os.path.join(tmpdir, "code.lean")
         with open(codef, "w") as f:
             f.write(f"""
-{challenge['function_signature']}
+{function_sig}
 {submission['code']}
 """)
         prooff=os.path.join(tmpdir, "proof.lean")
         with open(prooff, "w") as f:
             f.write(f"""
-{challenge['function_signature']}
+{function_sig}
 {submission['code']}
 
 {challenge['theorem_signature']}
@@ -26,7 +29,7 @@ def check_lean_proof(challenge: dict, submission: dict) -> dict:
             proof2f=os.path.join(tmpdir, "proof2.lean")
             with open(proof2f, "w") as f:
                 f.write(f"""
-{challenge['function_signature']}
+{function_sig}
 {submission['code']}
 """)
                 f.write(f"\n\n{challenge['theorem2_signature']}\n\n{submission['proof2']}")

@@ -32,10 +32,14 @@ curl -sSL https://install.python-poetry.org | python3 -
 curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf | sh
 ```
 
-## Brief Installation Instruction
+## Installation Instructions
 
-1. clone the repository
-2. `poetry install` to install dependencies
+1. clone the repository. `cd` into the directory. Then `poetry install` to install dependencies
+2. Install Mathlib4. 
+```bash
+curl https://raw.githubusercontent.com/leanprover-community/mathlib4/master/lean-toolchain -o lean-toolchain
+lake exe cache get
+```
 3. Create a database and user in PostgreSQL. First:
 ```bash
 sudo -u postgres psql

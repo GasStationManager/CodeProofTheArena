@@ -10,8 +10,9 @@
         <input type="text" id="title" name="title" required>
         <label for="description">Description:</label>
         <textarea id="description" name="description" rows="10" cols="50" required></textarea>
-        <label for="function_signature">Function Signature:</label>
-        <textarea id="function_signature" name="function_signature" rows="2" cols="50" required></textarea>
+        <label for="function_signature">Function Signature. (You may include import statements.
+If there are no import statments, <code>import Mathlib</code> will be inserted when evaluating in Lean.)</label>
+        <textarea id="function_signature" name="function_signature" rows="4" cols="50" required></textarea>
         <label for="theorem_signature">Theorem Signature:</label>
         <textarea id="theorem_signature" name="theorem_signature" rows="2" cols="50" required></textarea>
         <label for="theorem2_signature">Additional Theorem Signature (Optional):</label>
