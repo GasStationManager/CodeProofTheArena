@@ -24,7 +24,7 @@ VS Code with Lean4 extension, or the <a href="https://live.lean-lang.org/">Lean 
     <input type="hidden" name="session_token" value="{{ request.session.get('token', '') }}">
         
     <label for="code">Your Lean 4 Code, to complete the function definition
-<pre><code>{{ 'import Mathlib' if 'import' in challenge.function_signature else ''}}</code></pre>
+<pre><code>{{ 'import Mathlib' if 'import' not in challenge.function_signature else ''}}</code></pre>
 <pre><code>{{ challenge.function_signature }}</code></pre>
 </label>
     <textarea id="code" name="code" rows="10" cols="50" required></textarea>
