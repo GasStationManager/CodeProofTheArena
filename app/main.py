@@ -96,7 +96,6 @@ async def challenges_page(request: Request, db: Session = Depends(deps.get_db), 
     challenges = crud.challenge.get_challenges(db)
     return templates.TemplateResponse("challenges.html", {"request": request, "challenges": challenges, "user": current_user})
 
-
 @app.get("/challenges/create")
 async def create_challenge_page(request: Request, current_user: User = Depends(get_current_user)):
     if not current_user:

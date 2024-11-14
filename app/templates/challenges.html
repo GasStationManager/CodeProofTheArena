@@ -2,12 +2,44 @@
 
 {% block content %}
 <h1>Challenges</h1>
-<ul>
-    {% for challenge in challenges %}
-    <li>
-        <a href="/challenges/{{ challenge.id }}">{{ challenge.title }}</a>
-    </li>
-    {% endfor %}
-</ul>
+
+<table class="challenges-table">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Creator</th>
+            <th>Submissions</th>
+            <th>Successful</th>
+            <th>Success Rate</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for challenge, creator_name, total_submissions, successful_submissions in challenges_data %}
+        <tr>
+            <td><a href="/challenges/{{ challenge.id }}">{{ challenge.title }}</a></td>
+            <td>{{ creator_name }}</td>
+            <td>{{ total_submissions }}</td>
+            <td>{{ successful_submissions }}</td>
+            <td>
+                {% if total_submissions > 0 %}
+                    {{ "%.1f"|format(successful_submissions * 100 / total_submissions) }}%
+                {% else %}
+                    N/A
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% if not challenges_data %}
+<p>No challenges available.</p>
+{% endif %}
+
+{% if user %}
+<div class="create-challenge-button">
+    <a href="/challenges/create" class="button">Create New Challenge</a>
+</div>
+{% endif %}
 {% endblock %}
 

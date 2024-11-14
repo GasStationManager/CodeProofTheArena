@@ -1,12 +1,29 @@
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, joinedload
+from sqlalchemy import func
 from app.models.challenge import Challenge
 from app.schemas.challenge import ChallengeCreate, ChallengeUpdate
+from app.models.submission import Submission
+
 
 def get_challenge(db: Session, challenge_id: int):
     return db.query(Challenge).filter(Challenge.id == challenge_id).first()
 
+
 def get_challenges(db: Session, skip: int = 0, limit: int = 100):
-    return db.query(Challenge).offset(skip).limit(limit).all()
+    return (db.query(Challenge,
+                    User.display_name.label('creator_name'),
+                    func.count(Submission.id).label('total_submissions'),
+                    func.count(func.case([
+                        ((Submission.is_correct == True) &
+                         ((Challenge.theorem2_signature == None) | (Submission.is_correct2 == True)), 1)
+                    ])).label('successful_submissions'))
+            .join(User, Challenge.owner_id == User.id)
+            .outerjoin(Submission, Challenge.id == Submission.challenge_id)
+            .group_by(Challenge.id, User.display_name)
+            .order_by(Challenge.id)
+            .offset(skip)
+            .limit(limit)
+            .all())
 
 def create_challenge(db: Session, challenge: ChallengeCreate, owner_id: int):
     db_challenge = Challenge(**challenge.dict(), owner_id=owner_id)
