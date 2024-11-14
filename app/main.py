@@ -93,9 +93,9 @@ async def home(request: Request, current_user: dict = Depends(get_current_user))
 
 @app.get("/challenges")
 async def challenges_page(request: Request, db: Session = Depends(deps.get_db), current_user: dict = Depends(get_current_user)):
-    challenges = crud.challenge.get_challenges(db)
-    print(f"Found {len(challenges)} challenges") 
-    return templates.TemplateResponse("challenges.html", {"request": request, "challenges": challenges, "user": current_user})
+    challenges_data = crud.challenge.get_challenges(db)
+    #print(f"Found {len(challenges)} challenges") 
+    return templates.TemplateResponse("challenges.html", {"request": request, "challenges_data": challenges_data, "user": current_user})
 
 @app.get("/challenges/create")
 async def create_challenge_page(request: Request, current_user: User = Depends(get_current_user)):

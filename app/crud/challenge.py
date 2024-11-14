@@ -23,11 +23,11 @@ def get_challenges(db: Session, skip: int = 0, limit: int = 100):
 
     return (db.query(Challenge,
                     User.display_name.label('creator_name'),
-                    #func.count(Submission.id).label('total_submissions'),
-                    #func.coalesce(func.sum(success_case),0).label('successful_submissions')
+                    func.count(Submission.id).label('total_submissions'),
+                    func.coalesce(func.sum(success_case),0).label('successful_submissions')
                     )
             .join(User, Challenge.owner_id == User.id)
-            #.outerjoin(Submission, Challenge.id == Submission.challenge_id)
+            .outerjoin(Submission, Challenge.id == Submission.challenge_id)
             .group_by(Challenge.id, User.id, User.display_name)
             .order_by(Challenge.id)
             .offset(skip)
