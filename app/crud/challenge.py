@@ -27,7 +27,7 @@ def get_challenges(db: Session, skip: int = 0, limit: int = 100):
                     func.coalesce(func.sum(success_case),0).label('successful_submissions'))
             .join(User, Challenge.owner_id == User.id)
             .outerjoin(Submission, Challenge.id == Submission.challenge_id)
-            .group_by(Challenge.id, User,id, User.display_name)
+            .group_by(Challenge.id, User.id, User.display_name)
             .order_by(Challenge.id)
             .offset(skip)
             .limit(limit)
