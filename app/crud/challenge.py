@@ -3,7 +3,7 @@ from sqlalchemy import func
 from app.models.challenge import Challenge
 from app.schemas.challenge import ChallengeCreate, ChallengeUpdate
 from app.models.submission import Submission
-
+from app.models.user import User
 
 def get_challenge(db: Session, challenge_id: int):
     return db.query(Challenge).filter(Challenge.id == challenge_id).first()
