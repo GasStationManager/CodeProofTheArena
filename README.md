@@ -1,6 +1,6 @@
 # Code with Proofs: The Arena
 
-[Demo Site](http://5.78.72.236:8000)
+[Demo Site](http://www.codeproofarena.com:8000/)
 
 Main essay: [A Proposal for Safe and Hallucination-free Coding AI](https://gasstationmanager.github.io/ai/2024/11/04/a-proposal.html)
 
@@ -8,7 +8,7 @@ This repo implements a website with functionalities similar to online coding cha
 
 The purpose of this website is to serve as a platform to crowdsource efforts to create data on code-with-proof problems and solutions, including problem-only data as well as problem-with-solution data, both human-created and machine-created. And as a platform to share this data with the open-source community, for the purpose of training open-source models.
 
-The web app is implemented in Python with the FastAPI library. Both web interface and API endpoints are available to create/manage challanges
+The web app is implemented in Python with the FastAPI library. Both web interface and API endpoints are available to create/manage challenges
 and create/manage submissions. Automatic API documentation available; once the app is running
 they are served  at `/docs` (Swagger UI), and  at `/redoc` (Redoc).
 
