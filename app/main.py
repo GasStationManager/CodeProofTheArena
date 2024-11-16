@@ -18,7 +18,7 @@ from app.models import User
 
 from sqlalchemy.orm import Session
 from starlette.middleware.sessions import SessionMiddleware
-
+import urllib
 
 app = FastAPI(title="Lean 4 Coding Challenge Website")
 
