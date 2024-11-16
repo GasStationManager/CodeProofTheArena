@@ -145,9 +145,13 @@ async def challenge_detail(
     challenge = crud.challenge.get_challenge(db, challenge_id)
     if not challenge:
         raise HTTPException(status_code=404, detail="Challenge not found")
+    code = 'import Mathlib\n\n' if  'import' not in challenge.function_signature else ''
+    code+= challenge.function_signature+'\n\n'+challenge.theorem_signature
+    if challenge.theorem2_signature:
+        code+='\n\n'+ challenge.theorem2_signature
     return templates.TemplateResponse(
         "challenge_detail.html", 
-        {"request": request, "challenge": challenge, "user": current_user}
+        {"request": request, "challenge": challenge, "code": code, "user": current_user}
     )
 
 @app.post("/challenges/{challenge_id}")
