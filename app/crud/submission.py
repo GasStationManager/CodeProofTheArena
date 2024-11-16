@@ -31,7 +31,9 @@ def create_submission(db: Session, submission: SubmissionCreate, user_id: int):
         **submission.dict(),
         user_id=user_id,
         is_correct=judging_result["is_correct"],
-        feedback=judging_result["feedback"]
+        is_correct2=judging_result["is_correct2"],
+        feedback=judging_result["feedback"],
+        feedback2=judging_result["feedback2"]
     )
     db.add(db_submission)
     db.commit()
