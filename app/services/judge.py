@@ -55,7 +55,6 @@ def check_lean_proof(challenge: dict, submission: dict) -> dict:
         error_message2 = None
         if challenge.get('theorem2_signature') and submission.get('proof2'):
             result2 = subprocess.run(["lake","env","lean", proof2f], capture_output=True, text=True)
-            print('return code is '+result2.returncode)
             is_correct2 = result2.returncode == 0
             error_message2 = ""
             error_lines2 = result2.stderr.split('\n') + result2.stdout.split('\n')
