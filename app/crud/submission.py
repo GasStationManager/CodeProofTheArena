@@ -23,7 +23,7 @@ def create_submission(db: Session, submission: SubmissionCreate, user_id: int):
         raise ValueError("Challenge not found")
 
     judging_result = check_lean_proof(
-        {"function_signature": db_challenge.function_signature, "theorem_signature": db_challenge.theorem_signature, "theorem2_signature":challenge.theorem2_signature},
+        {"function_signature": db_challenge.function_signature, "theorem_signature": db_challenge.theorem_signature, "theorem2_signature":db_challenge.theorem2_signature},
         {"code": submission.code, "proof": submission.proof, "proof2": submission.proof2}
     )
 
