@@ -151,7 +151,7 @@ async def challenge_detail(
         code+='\n\n'+ challenge.theorem2_signature
     return templates.TemplateResponse(
         "challenge_detail.html", 
-        {"request": request, "challenge": challenge, "code": urllib.parse.quote_plus(code), "user": current_user}
+        {"request": request, "challenge": challenge, "code": urllib.parse.quote(code), "user": current_user}
     )
 
 @app.post("/challenges/{challenge_id}")
