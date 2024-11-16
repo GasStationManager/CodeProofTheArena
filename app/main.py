@@ -118,6 +118,9 @@ async def create_challenge(
         return RedirectResponse(url="/login", status_code=status.HTTP_303_SEE_OTHER)
     
     try:
+        if 'import' not in function_signature:
+            function_signature = 'import Mathlib\n\n' + function_signature
+
         challenge = ChallengeCreate(
             title=title,
             description=description,
