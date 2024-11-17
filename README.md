@@ -68,7 +68,8 @@ ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON TABLES TO coding_challeng
 \q
 ```
 
-5. Then set up connection to PostgreSQL in `app/core/config.py` and in `alembic.ini` (around line 64) by filling in the password you chose.
+5. Then put the password you chose in the previous step (for connection to PostgreSQL) in the following config files:
+First modify `dotenv.example` and save it as `.env`, and also in `alembic.ini` (around line 64).
 
 6. `poetry run alembic upgrade head` 
 
