@@ -12,6 +12,7 @@ from app.api.endpoints import auth, challenges, submissions
 from app.api import deps
 from app import crud, models, schemas
 from app.core import security
+from app.core.config import settings
 from app.schemas.user import UserCreate
 from app.schemas.challenge import ChallengeCreate
 from app.models import User
@@ -34,7 +35,7 @@ logger.setLevel(logging.DEBUG)
 
 
 # Add SessionMiddleware
-app.add_middleware(SessionMiddleware, secret_key="GasStationSecret")  # Replace with a secure secret key
+app.add_middleware(SessionMiddleware, secret_key=settings.SECRET_KEY)
 
 app.include_router(auth.router, prefix="/api/auth", tags=["auth"])
 app.include_router(challenges.router, prefix="/api/challenges", tags=["challenges"])

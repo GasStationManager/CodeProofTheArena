@@ -1,9 +1,9 @@
 from pydantic_settings import BaseSettings
 
 class Settings(BaseSettings):
-    DATABASE_URL: str = "postgresql://coding_challenge_user:LocalPass@localhost/coding_challenge_db"
+    DATABASE_URL: str
     # Add other configuration variables here
-    SECRET_KEY: str = "GasStationSecret"  # Change this!
+    SECRET_KEY: str
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
 
     class Config:
