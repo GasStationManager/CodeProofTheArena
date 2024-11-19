@@ -15,6 +15,7 @@ def get_challenges(db: Session, skip: int = 0, limit: int = 100):
             Submission.is_correct.is_(True),
             or_(
                 Challenge.theorem2_signature.is_(None),
+                Challenge.theorem2_signature == '',
                 Submission.is_correct2.is_(True)
             )
         ), 1),
