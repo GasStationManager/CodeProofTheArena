@@ -11,5 +11,10 @@ autoImplicit = false
 name = "mathlib"
 scope = "leanprover-community"
 
+[[require]]
+name = "SafeVerify"
+git = "https://github.com/GasStationManager/SafeVerify.git"
+
+
 [[lean_lib]]
 name = "CodeProofTheArena"
