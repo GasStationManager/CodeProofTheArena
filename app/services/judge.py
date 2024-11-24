@@ -9,7 +9,7 @@ FUNC_BANNED_WORDS = ['implemented_by', 'uncomputable']
 
 def check_lean_proof(challenge: dict, submission: dict) -> dict:
     for w in FUNC_BANNED_WORDS:
-        if w in submission['function_signature']:
+        if w in submission['code']:
             return {
                 "is_correct": False,
                 "is_correct2": False if challenge.get('theorem2_signature') else None,
