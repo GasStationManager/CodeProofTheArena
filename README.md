@@ -39,10 +39,12 @@ curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf 
 ## Installation Instructions
 
 1. clone the repository. `cd` into the directory. Then `poetry install` to install dependencies
-2. Install Mathlib4. 
+2. Install dependencies, including Mathlib4 and [SafeVerify](https://github.com/GasStationManager/SafeVerify). 
 ```bash
 curl https://raw.githubusercontent.com/leanprover-community/mathlib4/master/lean-toolchain -o lean-toolchain
 lake exe cache get
+lake update
+lake build safe_verify
 ```
 3. Create a database and user in PostgreSQL. First, log into the server using `psql` as the superuser of the PosgresSQL installation. For Ubuntu:
 `sudo -u postgres psql`. For Mac homebrew installation the user `postgres` is not installed; you might try
