@@ -65,7 +65,7 @@ def check_lean_proof(challenge: dict, submission: dict) -> dict:
             result = subprocess.run(["lake","env","lean",'-o',ofname, fname], capture_output=True, text=True)
             # Check if Lean 4 succeeded (return code 0 means success)
             is_correct = result.returncode == 0
-            return is_correct, result.sterr + result.stdout
+            return is_correct, result.stderr + result.stdout
 
         def compare(targf, subf):
             for f in [targf,subf]:
