@@ -266,7 +266,8 @@ async def edit_challenge(
                 function_signature=function_signature,
                 theorem_signature=theorem_signature,
                 theorem2_signature=theorem2_signature if theorem2_signature else None
-            )
+            ),
+            owner_id=current_user.id
         )
     except ValueError as e:
         return templates.TemplateResponse(
