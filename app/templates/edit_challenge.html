@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Edit Challenge</h1>
+
+{% if error %}
+<p style="color: red;">{{ error }}</p>
+{% endif %}
+
+<form method="post">
+    <div>
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title" value="{{ challenge.title }}" required>
+    </div>
+    <div>
+        <label for="description">Description:</label>
+        <textarea id="description" name="description" rows="4" required>{{ challenge.description }}</textarea>
+    </div>
+    <div>
+        <label for="function_signature">Function Signature:</label>
+        <textarea id="function_signature" name="function_signature" rows="2" required>{{ challenge.function_signature }}</textarea>
+    </div>
+    <div>
+        <label for="theorem_signature">Theorem Signature:</label>
+        <textarea id="theorem_signature" name="theorem_signature" rows="2" required>{{ challenge.theorem_signature }}</textarea>
+    </div>
+    <div>
+        <label for="theorem2_signature">Additional Theorem Signature (Optional):</label>
+        <textarea id="theorem2_signature" name="theorem2_signature" rows="2">{{ challenge.theorem2_signature or '' }}</textarea>
+    </div>
+    <div class="button-group">
+        <button type="submit">Save Changes</button>
+        <a href="/challenges/{{ challenge.id }}" class="button secondary">Cancel</a>
+    </div>
+</form>
+{% endblock %}

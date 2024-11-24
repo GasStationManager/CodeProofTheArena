@@ -1,0 +1,3 @@
+DATABASE_URL="postgresql://coding_challenge_user:LocalPass@localhost/coding_challenge_db"
+SECRET_KEY="GasStationSecret"
+
