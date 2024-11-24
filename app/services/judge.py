@@ -29,6 +29,7 @@ def check_lean_proof(challenge: dict, submission: dict) -> dict:
 {challenge['theorem_signature']}
 {thm_body}
 """)
+        print('finished writing to '+targf)
 
         prooff=os.path.join(tmpdir, "proof.lean")
         with open(prooff, "w") as f:
