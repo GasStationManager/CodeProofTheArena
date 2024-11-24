@@ -87,7 +87,7 @@ def check_lean_proof(challenge: dict, submission: dict) -> dict:
 {function_sig}
 {code}
 """)
-                f.write(f"\n\n{challenge['theorem2_signature']}\n\n{proof2}")
+                f.write(f"\n\n{challenge['theorem2_signature']}\n\n{prf2}")
 
         def compile (fname):
             # compile on the temporary file
