@@ -26,7 +26,8 @@
 <pre><code>{{ submission.proof2 }}</code></pre>
 <p>Status: {{ "Correct" if submission.is_correct2 else "Incorrect" }}</p>
 {% if submission.feedback2 %}
-<p>Feedback: {{ submission.feedback2 }}</p>
+<p>Feedback: </p>
+<pre>{{ submission.feedback2 }}</pre>
 {% endif %}
 {% endif %}
 
