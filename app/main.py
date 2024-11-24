@@ -260,7 +260,7 @@ async def edit_challenge(
         updated_challenge = crud.challenge.update_challenge(
             db,
             challenge_id=challenge_id,
-            challenge_update=schemas.ChallengeUpdate(
+            challenge=schemas.ChallengeUpdate(
                 title=title,
                 description=description,
                 function_signature=function_signature,
