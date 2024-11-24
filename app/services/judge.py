@@ -8,7 +8,9 @@ import re
 
 
 def check_lean_proof(challenge: dict, submission: dict) -> dict:
-    with tempfile.TemporaryDirectory(dir='temp') as tmpdir:
+    basedir=os.path.abspath('temp')
+    print('basedir ',basedir)
+    with tempfile.TemporaryDirectory(dir=basedir) as tmpdir:
         # Create temporary Lean files
         print('created temp directory ', tmpdir)
         function_sig=challenge['function_signature']
