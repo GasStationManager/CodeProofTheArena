@@ -10,6 +10,7 @@ import re
 def check_lean_proof(challenge: dict, submission: dict) -> dict:
     with tempfile.TemporaryDirectory(dir='temp') as tmpdir:
         # Create temporary Lean files
+        print('created temp directory ', tmpdir)
         function_sig=challenge['function_signature']
         if 'import' not in function_sig:
             function_sig='import Mathlib\n\n'+function_sig
