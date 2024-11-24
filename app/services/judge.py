@@ -97,7 +97,7 @@ def check_lean_proof(challenge: dict, submission: dict) -> dict:
         is_correct2 = None
         error_message2 = None
         if challenge.get('theorem2_signature') and submission.get('proof2'):
-            is_correct2,error_messag2=compare(targ2f,proof2f)
+            is_correct2,error_message2=compare(targ2f,proof2f)
 
         return {
             "is_correct": is_correct,
