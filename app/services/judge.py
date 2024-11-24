@@ -5,9 +5,17 @@ import re
 
 
 
-
+FUNC_BANNED_WORDS = ['implemented_by', 'uncomputable']
 
 def check_lean_proof(challenge: dict, submission: dict) -> dict:
+    for w in FUNC_BANNED_WORDS:
+        if w in submission['function_signature']:
+            return {
+                "is_correct": False,
+                "is_correct2": False if challenge.get('theorem2_signature') else None,
+                "error_message": f"{w} is not allowed in the function implementation",
+                "error2_message": None
+            }
     basedir=os.path.abspath('temp')
     print('basedir ',basedir)
     with tempfile.TemporaryDirectory(dir=basedir) as tmpdir:
@@ -46,7 +54,7 @@ def check_lean_proof(challenge: dict, submission: dict) -> dict:
         proof2f=None
         if challenge.get('theorem2_signature') and submission.get('proof2'):
             targ2f=os.path.join(tmpdir, "target2.lean")
-            thm2_body='sorry\n' if challegne['theorem2_signature'].strip().endswith(':=') else ':=sorry\n'
+            thm2_body='sorry\n' if challenge['theorem2_signature'].strip().endswith(':=') else ':=sorry\n'
             with open(targ2f,'w') as f:
                 f.write(f"""
 {function_sig}
