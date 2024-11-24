@@ -208,6 +208,79 @@ async def submit_challenge(
             {"request": request, "challenge": crud.challenge.get_challenge(db, challenge_id), "user": user, "error": "An error occurred while submitting. Please try again."}
         )
 
+@app.get("/challenges/{challenge_id}/edit")
+async def edit_challenge_page(
+    request: Request,
+    challenge_id: int,
+    db: Session = Depends(deps.get_db),
+    current_user: User = Depends(get_current_user)
+):
+    if not current_user:
+        return RedirectResponse(url="/login", status_code=status.HTTP_303_SEE_OTHER)
+    
+    challenge = crud.challenge.get_challenge(db, challenge_id)
+    if not challenge:
+        raise HTTPException(status_code=404, detail="Challenge not found")
+    
+    if challenge.owner_id != current_user.id:
+        raise HTTPException(status_code=403, detail="Not authorized to edit this challenge")
+    
+    return templates.TemplateResponse(
+        "edit_challenge.html",
+        {
+            "request": request,
+            "challenge": challenge,
+            "user": current_user
+        }
+    )
+
+@app.post("/challenges/{challenge_id}/edit")
+async def edit_challenge(
+    request: Request,
+    challenge_id: int,
+    title: str = Form(...),
+    description: str = Form(...),
+    function_signature: str = Form(...),
+    theorem_signature: str = Form(...),
+    theorem2_signature: str = Form(None),
+    db: Session = Depends(deps.get_db),
+    current_user: User = Depends(get_current_user)
+):
+    if not current_user:
+        return RedirectResponse(url="/login", status_code=status.HTTP_303_SEE_OTHER)
+    
+    challenge = crud.challenge.get_challenge(db, challenge_id)
+    if not challenge:
+        raise HTTPException(status_code=404, detail="Challenge not found")
+    
+    if challenge.owner_id != current_user.id:
+        raise HTTPException(status_code=403, detail="Not authorized to edit this challenge")
+    
+    try:
+        updated_challenge = crud.challenge.update_challenge(
+            db,
+            challenge_id=challenge_id,
+            challenge_update=schemas.ChallengeUpdate(
+                title=title,
+                description=description,
+                function_signature=function_signature,
+                theorem_signature=theorem_signature,
+                theorem2_signature=theorem2_signature if theorem2_signature else None
+            )
+        )
+    except ValueError as e:
+        return templates.TemplateResponse(
+            "edit_challenge.html",
+            {
+                "request": request,
+                "challenge": challenge,
+                "user": current_user,
+                "error": str(e)
+            }
+        )
+    
+    return RedirectResponse(url=f"/challenges/{challenge_id}", status_code=status.HTTP_303_SEE_OTHER)
+
 @app.get("/challenges/{challenge_id}/submissions")
 async def challenge_submissions(
     request: Request,

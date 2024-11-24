@@ -50,7 +50,9 @@ def update_challenge(db: Session, challenge_id: int, challenge: ChallengeUpdate,
             setattr(db_challenge, key, value)
         db.commit()
         db.refresh(db_challenge)
-    return db_challenge
+        return db_challenge
+    else:
+        raise ValueError("Challenge not found")
 
 def delete_challenge(db: Session, challenge_id: int, owner_id: int):
     db_challenge = db.query(Challenge).filter(Challenge.id == challenge_id, Challenge.owner_id == owner_id).first()

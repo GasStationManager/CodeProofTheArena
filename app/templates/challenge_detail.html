@@ -2,6 +2,12 @@
 
 {% block content %}
 <h1>{{ challenge.title }}</h1>
+{% if user and user.id == challenge.owner_id %}
+<div class="admin-controls">
+    <a href="/challenges/{{ challenge.id }}/edit" class="button">Edit Challenge</a>
+</div>
+{% endif %}
+
 <p>{{ challenge.description }}</p>
 <h2>Function Signature</h2>
 <pre><code>{{ challenge.function_signature }}</code></pre>

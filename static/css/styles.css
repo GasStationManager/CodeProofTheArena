@@ -138,3 +138,12 @@ button[type="submit"]:hover {
     background-color: #0056b3;
 }
 
+.admin-controls {
+    margin: 1rem 0;
+}
+
+form textarea {
+    width: 100%;
+    font-family: monospace;
+}
+
