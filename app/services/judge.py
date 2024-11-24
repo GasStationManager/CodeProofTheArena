@@ -7,6 +7,18 @@ import re
 
 FUNC_BANNED_WORDS = ['implemented_by', 'uncomputable']
 
+
+def extract_imports (code:str):
+        imports=''
+        rest=''
+        for line in code.splitlines():
+            if line.startswith('import'):
+                imports+=line+'\n'
+            else:
+                rest+=line+'\n'
+        return imports,rest
+
+
 def check_lean_proof(challenge: dict, submission: dict) -> dict:
     for w in FUNC_BANNED_WORDS:
         if w in submission['code']:
@@ -22,8 +34,8 @@ def check_lean_proof(challenge: dict, submission: dict) -> dict:
         # Create temporary Lean files
         print('created temp directory ', tmpdir)
         function_sig=challenge['function_signature']
-        if 'import' not in function_sig:
-            function_sig='import Mathlib\n\n'+function_sig
+        #if 'import' not in function_sig:
+        #    function_sig='import Mathlib\n\n'+function_sig
 
 
         targf=os.path.join(tmpdir, "target.lean")
@@ -43,13 +55,17 @@ def check_lean_proof(challenge: dict, submission: dict) -> dict:
         print('finished writing to '+targf)
 
         prooff=os.path.join(tmpdir, "proof.lean")
+        codeimp, code=extract_imports(submission['code'])
+        prfimp,prf=extract_imports(submission['proof'])
         with open(prooff, "w") as f:
             f.write(f"""
+{codeimp}
+{prfimp}
 {function_sig}
-{submission['code']}
+{code}
 
 {challenge['theorem_signature']}
-{submission['proof']}
+{prf}
 """)
         proof2f=None
         if challenge.get('theorem2_signature') and submission.get('proof2'):
@@ -63,12 +79,15 @@ def check_lean_proof(challenge: dict, submission: dict) -> dict:
 {thm2_body}
 """)
             proof2f=os.path.join(tmpdir, "proof2.lean")
+            prf2imp,prf2=extract_imports(submission['proof2'])
             with open(proof2f, "w") as f:
                 f.write(f"""
+{codeimp}
+{prf2imp}
 {function_sig}
-{submission['code']}
+{code}
 """)
-                f.write(f"\n\n{challenge['theorem2_signature']}\n\n{submission['proof2']}")
+                f.write(f"\n\n{challenge['theorem2_signature']}\n\n{proof2}")
 
         def compile (fname):
             # compile on the temporary file
