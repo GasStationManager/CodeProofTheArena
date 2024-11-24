@@ -119,9 +119,6 @@ async def create_challenge(
         return RedirectResponse(url="/login", status_code=status.HTTP_303_SEE_OTHER)
     
     try:
-        if 'import' not in function_signature:
-            function_signature = 'import Mathlib\n\n' + function_signature
-
         challenge = ChallengeCreate(
             title=title,
             description=description,
@@ -146,8 +143,7 @@ async def challenge_detail(
     challenge = crud.challenge.get_challenge(db, challenge_id)
     if not challenge:
         raise HTTPException(status_code=404, detail="Challenge not found")
-    code = 'import Mathlib\n\n' if  'import' not in challenge.function_signature else ''
-    code+= challenge.function_signature+'\n\n'+challenge.theorem_signature
+    code= challenge.function_signature+'\n\n'+challenge.theorem_signature
     if challenge.theorem2_signature:
         code+='\n\n'+ challenge.theorem2_signature
     return templates.TemplateResponse(
