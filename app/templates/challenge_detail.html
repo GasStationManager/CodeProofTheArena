@@ -23,8 +23,11 @@
 {% if user %}
 <h2>Submit Your Solution</h2>
 <p>We recommend you write and edit your code in a Lean 4 environment, e.g. 
-VS Code with Lean4 extension, or the 
+VS Code with the Lean4 extension, or the 
 <a href="https://live.lean-lang.org/#code={{ code }}" target="_blank">Lean 4 Web</a> playground (with the signatures loaded).
+</p>
+<p>You may import additional libraries. The system will scan for lines starting with <code>import</code> and
+put them at the beginning when compiling. 
 </p>
 <form action="/challenges/{{ challenge.id }}" method="post">
     <input type="hidden" name="challenge_id" value="{{ challenge.id }}">
