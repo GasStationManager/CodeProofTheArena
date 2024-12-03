@@ -23,6 +23,10 @@ def create_challenge(challenge_data, api_url, token):
         function_name = extract_function_name(challenge_data['function_signature'])
         title = function_name if function_name else "Untitled Challenge"
 
+
+    # property def (for FormalizeWithTest outputs)
+    if 'property_def' in challenge_data:
+        challenge_data['theorem_signature'] = f"{challenge_data['property_def']}\n{challenge_data['theorem_signature']}"
     # Prepare challenge data
     challenge = {
         "title": title,
