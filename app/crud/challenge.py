@@ -9,6 +9,13 @@ def get_challenge(db: Session, challenge_id: int):
     return db.query(Challenge).filter(Challenge.id == challenge_id).first()
 
 
+def get_api_challenges(db: Session, skip: int = 0, limit: int =100):
+    return (db.query(Challenge)
+            .order_by(Challenge.id)
+            .offset(skip)
+            .limit(limit)
+            .all())
+
 def get_challenges(db: Session, skip: int = 0, limit: int = 100):
     success_case = case(
         (and_(
