@@ -15,13 +15,13 @@ def create_challenge(
 ):
     return crud.challenge.create_challenge(db=db, challenge=challenge, owner_id=current_user.id)
 
-@router.get("/")
+@router.get("/", response_model=List[schemas.Challenge])
 def read_challenges(
     skip: int = 0,
     limit: int = 100,
     db: Session = Depends(deps.get_db)
 ):
-    challenges = crud.challenge.get_challenges(db, skip=skip, limit=limit)
+    challenges = crud.challenge.get_api_challenges(db, skip=skip, limit=limit)
     return challenges
 
 @router.get("/{challenge_id}", response_model=schemas.Challenge)
