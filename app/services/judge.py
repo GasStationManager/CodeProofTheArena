@@ -5,7 +5,7 @@ import re
 
 
 
-FUNC_BANNED_WORDS = ['implemented_by', 'uncomputable']
+FUNC_BANNED_WORDS = ['implemented_by', 'noncomputable']
 
 
 def extract_imports (code:str):
