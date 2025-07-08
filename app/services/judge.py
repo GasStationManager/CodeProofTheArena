@@ -25,8 +25,8 @@ def check_lean_proof(challenge: dict, submission: dict) -> dict:
             return {
                 "is_correct": False,
                 "is_correct2": False if challenge.get('theorem2_signature') else None,
-                "error_message": f"{w} is not allowed in the function implementation",
-                "error2_message": None
+                "feedback": f"{w} is not allowed in the function implementation",
+                "feedback2": None
             }
     basedir=os.path.abspath('temp')
     print('basedir ',basedir)
